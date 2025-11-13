@@ -416,6 +416,18 @@ export class TelloClient extends EventEmitter {
     });
   }
 
+  public isFlying(): boolean {
+    return ((this.state?.h ?? 0) > 0);
+  }
+
+  public getFlyingTime(): number {
+    return this.state?.time ?? 0;
+  }
+
+  public getCurrentState(): TelloState | null {
+    return this.state;
+  }
+
   public async *streamFrames(): AsyncGenerator<Buffer> {
     const queue: Buffer[] = [];
     const handler = (frame: Buffer): number => queue.push(frame);
